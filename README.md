@@ -73,14 +73,13 @@ Install `Skopeo` tool. Please use version 0.1.40+ and non-dev version.
 6. Verify the image with signature
 
         # location of the manifest.json: /Users/ibm/Downloads/test/transformation-advisor-operator/docker/manifest.json
-        # docker reference: ibmcom/icp-transformation-advisor-ui:2.3.0-test-1-amd64
-        # it is very IMPORTANT that you add the platform -amd64 after the docker tag in verification, as we only sign the amd64 platform at the moment.
+        # docker reference: transformation-advisor
         # the imported public key fingerprint: 7D9108FAF55272DCF922EE1650C2D9CFF1A2F295
         # the downloaded singature: /Users/ibm/Downloads/signature-2.3.0
       
         skopeo standalone-verify \
         /Users/ibm/Downloads/test/transformation-advisor-operator/docker/manifest.json \
-        ibmcom/icp-transformation-advisor-ui:2.3.0-test-1-amd64 \
+        transformation-advisor \
         7D9108FAF55272DCF922EE1650C2D9CFF1A2F295 \
         /Users/ibm/Downloads/signature-2.3.0
 

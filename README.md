@@ -23,21 +23,21 @@ Install `Skopeo` tool. Please use version 0.1.40+ and non-dev version.
 1. Pull docker images from docker hub, e.g.
 
         # pull down the test image
-        docker pull ibmcom/icp-transformation-advisor-ui:2.3.0-test-1-amd64
+        docker pull ibmcom/icp-transformation-advisor-ui:sample-image-signing-eabde5e
 
 2. Copy from local docker repo to a location:
 
         # the location where you want to copy the image to
-        mkdir -p /Users/ibm/Downloads/test/transformation-advisor-operator/docker
+        mkdir -p /Users/ibm/Downloads/transformation-advisor/docker
 
         skopeo copy --dest-tls-verify=false \
-        docker-daemon:docker.io/ibmcom/icp-transformation-advisor-ui:2.3.0-test-1-amd64 \
-        dir:/Users/ibm/Downloads/test/transformation-advisor-operator/docker
+        docker-daemon:docker.io/ibmcom/icp-transformation-advisor-ui:sample-image-signing-eabde5e \
+        dir:/Users/ibm/Downloads/transformation-advisor/docker
 
 3. Download the signature, keys and certs from this repo
 
-        # signature of the image ibmcom/icp-transformation-advisor-ui:2.3.0-test-1-amd64 is located below:
-        https://github.com/TransformationAdvisor/public/tree/master/ibmcom/icp-transformation-advisor-ui_2.3.0-test-1-amd64
+        # signature of the image ibmcom/icp-transformation-advisor-ui:sample-image-signing-eabde5e is located below:
+        https://github.com/TransformationAdvisor/public/tree/master/sample/signature-sample-eabde5e
 
         The signature is used to verify the image
 
@@ -72,16 +72,17 @@ Install `Skopeo` tool. Please use version 0.1.40+ and non-dev version.
 
 6. Verify the image with signature
 
-        # location of the manifest.json: /Users/ibm/Downloads/test/transformation-advisor-operator/docker/manifest.json
-        # docker reference: transformation-advisor
+        # location of the manifest.json: /Users/ibm/Downloads/transformation-advisor/docker/manifest.json
+        # docker reference: transformation-advisor 
+        # The same docker reference is used for all the images
         # the imported public key fingerprint: 7D9108FAF55272DCF922EE1650C2D9CFF1A2F295
-        # the downloaded singature: /Users/ibm/Downloads/signature-2.3.0
+        # the downloaded singature: /Users/ibm/Downloads/signature-sample-eabde5e
       
         skopeo standalone-verify \
-        /Users/ibm/Downloads/test/transformation-advisor-operator/docker/manifest.json \
+        /Users/ibm/Downloads/transformation-advisor/docker/manifest.json \
         transformation-advisor \
         7D9108FAF55272DCF922EE1650C2D9CFF1A2F295 \
-        /Users/ibm/Downloads/signature-2.3.0
+        /Users/ibm/Downloads/signature-sample-eabde5e
 
         Signature verified, digest sha256:c84367ae8593c428d8174ed33097e31518169ac94e5cc03742ef1ff78d94bd5f
 

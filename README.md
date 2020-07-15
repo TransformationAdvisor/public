@@ -103,7 +103,7 @@ Install `Skopeo` tool. Please use version 0.1.40+ and non-dev version.
          
 ### For Customers Using IBM Entitled Registry
 
-You can setup verification automatic for the AMD64 image:
+You can follow these steps below to verify images automatically for the AMD64 images. Should you need to verify the public key, `tasigningcert-public.gpg`, please follow the previous instruction.
 
 1. add a policy for the icr registry in /etc/containers/policy.json and include the public key
   ```

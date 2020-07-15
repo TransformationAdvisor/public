@@ -100,3 +100,64 @@ Install `Skopeo` tool. Please use version 0.1.40+ and non-dev version.
         /Users/ibm/Downloads/tasigningcert.pem: good
         	This Update: Jun 16 07:57:34 2020 GMT
         	Next Update: Jun 23 07:12:34 2020 GMT
+         
+### For Customers Using IBM Entitled Registry
+
+You can setup verification automatic for the AMD64 image:
+
+1. add a policy for the icr registry in /etc/containers/policy.json and include the public key
+  ```
+  {
+    "default": [
+      {
+        "type": "insecureAcceptAnything"
+      }
+    ],
+    "transports": {
+      "docker-daemon": {
+        "": [
+          {
+            "type": "insecureAcceptAnything"
+          }
+        ]
+      },
+      "docker": {
+        "cp.stg.icr.io": [
+          {
+            "type": "signedBy",
+            "keyType": "GPGKeys",
+            "keyPath": "/root/tasigningcert-public.gpg"
+          }
+        ]
+      }
+    }
+  }
+  ```
+2. use `skopeo` to pull the image to a local machine. If the image is not signed, it will fail. e.g if pulling transadv-operator:2.2.0 will fail since it is not signed
+  ```
+  skopeo copy --remove-signatures --src-creds iamapikey:${password} \
+               docker://cp.stg.icr.io/cp/icpa/transadv-operator:2.3.0-test \
+               docker-daemon:cp.stg.icr.io/cp/icpa/transadv-operator:2.3.0-test
+  ```
+  ```
+  root@doggish1:~# skopeo copy --remove-signatures --src-creds iamapikey:${password}docker://cp.stg.icr.io/cp/icpa/transadv-operator:2.3.0-test docker-daemon:cp.stg.icr.io/cp/icpa/transadv-operator:2.3.0-test 
+  Copying blob 631ae23e2389 done
+  Copying blob d4aa4753891a done
+  Copying blob 68a459654aba done
+  Copying blob 08d2a786ba43 done
+  Copying blob b6d3b7b04ffd done
+  Copying blob f6e4f72587af done
+  Copying blob e5cd6367520c done
+  Copying blob d4b9d95aabd7 done
+  Copying blob 60dce98f5b89 done
+  Copying config 08f3e238a7 done
+  Writing manifest to image destination
+  Storing signatures
+  root@doggish1:~#
+  ```
+  For example, you will get an error if try to pull transadv-operator:2.2.0
+  ```
+  @doggish1:~# skopeo copy --remove-signatures --src-creds iamapikey:${password} docker://cp.stg.icr.io/cp/icpa/transadv-operator:2.2.0 docker-daemon:cp.stg.icr.io/cp/icpa/transadv-operator:2.2.0 
+  FATA[0001] Source image rejected: A signature was required, but no signature exists 
+  root@doggish1:~#
+  ```

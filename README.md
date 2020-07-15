@@ -110,14 +110,14 @@ You can setup verification automatic for the AMD64 image:
   {
     "default": [
       {
-        "type": "insecureAcceptAnything"
+        "type": "reject"
       }
     ],
     "transports": {
       "docker-daemon": {
         "": [
           {
-            "type": "insecureAcceptAnything"
+            "type": "reject"
           }
         ]
       },

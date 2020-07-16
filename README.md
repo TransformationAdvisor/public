@@ -117,7 +117,7 @@ You can follow these steps below to verify images automatically for the AMD64 im
       "docker-daemon": {
         "": [
           {
-            "type": "reject"
+            "type": "insecureAcceptAnything"
           }
         ]
       },

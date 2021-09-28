@@ -4,26 +4,14 @@
 
 Install `Skopeo` tool. Please use version 0.1.40+ and non-dev version.
 
-   1 For Redhat 8:
-
-        1. Download: ftp://ftp3.linux.ibm.com/redhat/ibm-yum-rhel8.sh with FTP3 account, and run it on the Redhat 8 server
-        2. run `dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm`
-        3. run `dnf upgrade`
-        4. run `dnf install skopeo`
-        5. exit the redhat server and re-login a new session, to enable skopeo
-
-   2 For Ubuntu 16:
-
-        sudo apt-add-repository ppa:projectatomic/ppa -y
-        sudo apt-get update -y
-        sudo apt-get install skopeo -y
+See here for more details: https://github.com/containers/skopeo/blob/main/install.md
 
 ### Steps to verify
 
 1. Pull docker images from docker hub, e.g.
 
         # pull down the test image
-        docker pull ibmcom/icp-transformation-advisor-ui:sample-image-signing-eabde5e
+        docker pull icr.io/appcafe/transformation-advisor-ui:sample-image-signing-eabde5e
 
 2. Copy from local docker repo to a location:
 
@@ -31,12 +19,12 @@ Install `Skopeo` tool. Please use version 0.1.40+ and non-dev version.
         mkdir -p /Users/ibm/Downloads/transformation-advisor/docker
 
         skopeo copy --dest-tls-verify=false \
-        docker-daemon:docker.io/ibmcom/icp-transformation-advisor-ui:sample-image-signing-eabde5e \
+        docker-daemon:icr.io/appcafe/icp-transformation-advisor-ui:sample-image-signing-eabde5e \
         dir:/Users/ibm/Downloads/transformation-advisor/docker
 
 3. Download the signature, keys and certs from this repo
 
-        # signature of the image ibmcom/icp-transformation-advisor-ui:sample-image-signing-eabde5e is located below:
+        # signature of the image icr.io/appcafe/icp-transformation-advisor-ui:sample-image-signing-eabde5e is located below:
         https://github.com/TransformationAdvisor/public/tree/master/sample/signature-sample-eabde5e
 
         The signature is used to verify the image

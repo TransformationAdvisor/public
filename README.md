@@ -22,7 +22,8 @@ See here for more details: https://github.com/containers/skopeo/blob/main/instal
         docker-daemon:icr.io/appcafe/icp-transformation-advisor-ui:sample-image-signing-eabde5e \
         dir:/Users/ibm/Downloads/transformation-advisor/docker
 
-3. Download the signature, keys and certs from this repo
+3. Download the signature, keys and certs from this repo. If you plan to verify Transformation Advisor 3.0 or older, 
+the signature, keys and certs are in the folder `TA_3.0_and_older`
 
         # signature of the image icr.io/appcafe/icp-transformation-advisor-ui:sample-image-signing-eabde5e is located below:
         https://github.com/TransformationAdvisor/public/tree/master/sample/signature-sample-eabde5e
@@ -34,7 +35,7 @@ See here for more details: https://github.com/containers/skopeo/blob/main/instal
         tasigningcert.pem: certificate is used to to verify public key
         tasigningcert-chain0.pem: certificate chain 0 is used to verify certificate validity, hosted on www.digicert.com
 
-4. Import public key
+5. Import public key
 
         # import
         gpg2 --import tasigningcert-public.gpg
@@ -47,7 +48,7 @@ See here for more details: https://github.com/containers/skopeo/blob/main/instal
               7D91 08FA F552 72DC F922  EE16 50C2 D9CF F1A2 F295
         uid           [ unknown] tasigningcert
 
-5. Verify the cert
+6. Verify the cert
 
         openssl x509 -text -in tasigningcert.pem
 
@@ -58,7 +59,7 @@ See here for more details: https://github.com/containers/skopeo/blob/main/instal
                 Not After : Apr 27 12:00:00 2022 GMT
             Subject: C=US, ST=New York, L=Armonk, O=International Business Machines Corporation, OU=IBM CCSS, CN=International Business Machines Corporation
 
-6. Verify the image with signature
+7. Verify the image with signature
 
         # location of the manifest.json: /Users/ibm/Downloads/transformation-advisor/docker/manifest.json
         # docker reference: transformation-advisor 
@@ -74,7 +75,7 @@ See here for more details: https://github.com/containers/skopeo/blob/main/instal
 
         Signature verified, digest sha256:c84367ae8593c428d8174ed33097e31518169ac94e5cc03742ef1ff78d94bd5f
 
-7. Verify the signature with keys and certs
+8. Verify the signature with keys and certs
 
         openssl ocsp -no_nonce \
         -issuer /Users/ibm/Downloads/tasigningcert-chain0.pem \
@@ -86,8 +87,8 @@ See here for more details: https://github.com/containers/skopeo/blob/main/instal
         ...
         Response verify OK
         /Users/ibm/Downloads/tasigningcert.pem: good
-        	This Update: Jun 16 07:57:34 2020 GMT
-        	Next Update: Jun 23 07:12:34 2020 GMT
+            This Update: Jun 16 07:57:34 2020 GMT
+            Next Update: Jun 23 07:12:34 2020 GMT
          
 ### For Customers Using IBM Entitled Registry
 

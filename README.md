@@ -1,4 +1,4 @@
-**IMPORTANT:** This repo is depreceted. For up to date information on verifying Transormation Advisor signatures, please see the documentation: https://www.ibm.com/docs/en/cta?topic=planning-security-considerations
+**IMPORTANT:** This repo is deprecated. For up to date information on verifying Transormation Advisor signatures, please see the documentation: https://www.ibm.com/docs/en/cta?topic=planning-security-considerations
 
 ================
 
